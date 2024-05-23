@@ -148,7 +148,7 @@ let index = false;
 	let interval,t;
 	let lastScrollY;
 window.addEventListener('scroll', () => {
-  if (window.scrollY + 50 < lastScrollY) {
+  if (window.scrollY + 100 < lastScrollY) {
         index = true;
     }
 	else {
@@ -161,7 +161,7 @@ window.addEventListener('scroll', () => {
 });
 interval = setInterval(() => {
     if (!index) {
-   window.scrollTo(0, document.documentElement.scrollHeight + 100);
+   window.scrollTo(0, document.documentElement.scrollHeight);
     }
 }, 500);
 </script>
