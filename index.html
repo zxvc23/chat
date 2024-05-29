@@ -147,15 +147,52 @@
 let index = false;
 	let interval,t;
 	let lastScrollY;
+	function hideNewChatLines(mutationsList) {
+    mutationsList.forEach(mutation => {
+        if (mutation.type === 'childList') {
+            mutation.addedNodes.forEach(node => {
+                if (node.nodeType === 1 && node.classList.contains('chat_line') && node.classList.contains('animate')) {
+                    node.style.display = 'none';
+                }
+            });
+        }
+    });
+}
+const observer = new MutationObserver(hideNewChatLines);
+const pauseButton = document.createElement('button');
+pauseButton.textContent = 'Chat Paused for Scrolling';
+pauseButton.style.position = 'fixed';
+pauseButton.style.bottom = '30px';
+pauseButton.style.right = '40%';
+pauseButton.style.fontSize = '25px';
+pauseButton.style.background = 'black';
+pauseButton.style.color = 'white';
+pauseButton.style.display = 'none';
+pauseButton.style.zIndex = '1000'; // Ensure it is above other elements
+
+// Append the button to the body
+document.body.appendChild(pauseButton);
+
+// Add the click event listener to the button
+pauseButton.addEventListener('click', () => {
+    index = false;
+});
 window.addEventListener('scroll', () => {
-  if (window.scrollY + 100 < lastScrollY) {
+  if (window.scrollY + 150 < lastScrollY) {
         index = true;
+		pauseButton.style.display = 'block';
+observer.observe(document.body, { childList: true, subtree: true });
     }
 	else {
         const nearBottom =window.innerHeight+ window.scrollY >= document.documentElement.scrollHeight - 200;
         if (nearBottom) {
             index = false;
-        }
+			pauseButton.style.display = 'none';
+            observer.disconnect();
+			document.querySelectorAll('.chat_line.animate').forEach(element => {
+  element.style.display = '';
+});
+		}
     }
 	    lastScrollY = window.scrollY;
 });
