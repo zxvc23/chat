@@ -164,7 +164,8 @@ pauseButton.textContent = 'Chat Paused for Scrolling';
 pauseButton.style.position = 'fixed';
 pauseButton.style.bottom = '30px';
 pauseButton.style.right = '12%';
-pauseButton.style.fontSize = '15px';
+pauseButton.style.fontSize = '25px';
+pauseButton.style.fontWeight = '600';
 pauseButton.style.width = '80%';
 pauseButton.style.background = 'black';
 pauseButton.style.color = 'white';
@@ -179,7 +180,7 @@ pauseButton.addEventListener('click', () => {
     index = false;
 });
 window.addEventListener('scroll', () => {
-  if (window.scrollY + 150 < lastScrollY) {
+  if (window.scrollY + 200 < lastScrollY) {
         index = true;
 		pauseButton.style.display = 'block';
 observer.observe(document.body, { childList: true, subtree: true });
@@ -187,7 +188,9 @@ observer.observe(document.body, { childList: true, subtree: true });
 	else {
         const nearBottom =window.innerHeight+ window.scrollY >= document.documentElement.scrollHeight - 200;
         if (nearBottom) {
+		 setTimeout(() => {
             index = false;
+        }, 3000);
 			pauseButton.style.display = 'none';
             observer.disconnect();
 			document.querySelectorAll('.chat_line.animate').forEach(element => {
