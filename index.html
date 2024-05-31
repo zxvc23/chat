@@ -21,7 +21,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #333;
+  background: black;
   border-radius: 5px;
 }
 
@@ -148,7 +148,7 @@
 	<script>
 let index = false;
 	let interval,t;
-	let lastScrollY;
+	let lastScrollY=window.innerHeight;
 	console.log('window.innerHeight=',window.innerHeight);
 	console.log('document.documentElement.scrollHeight=',document.documentElement.scrollHeight);
 	function hideNewChatLines(mutationsList) {
@@ -164,7 +164,15 @@ let index = false;
 }
 const observer = new MutationObserver(hideNewChatLines);
 const pauseButton = document.createElement('button');
-pauseButton.textContent = 'Chat Paused for Scrolling';
+
+const img = document.createElement("img");
+img.src = "./pause.jpg";
+img.style.verticalAlign = "middle"; 
+img.style.width = "21px";
+img.style.height = "21px";
+
+pauseButton.appendChild(img);
+pauseButton.appendChild(document.createTextNode(' Chat Paused for Scrolling'));
 pauseButton.style.position = 'fixed';
 pauseButton.style.bottom = '30px';
 pauseButton.style.right = '12%';
@@ -177,14 +185,14 @@ pauseButton.style.display = 'none';
 pauseButton.style.zIndex = '1000';
 pauseButton.style.borderRadius = '12px';
 pauseButton.style.border = '2px solid lime';
-
 document.body.appendChild(pauseButton);
+
 pauseButton.addEventListener('click', () => {
     index = false;
 	   window.scrollTo(0, document.documentElement.scrollHeight);
 });
 window.addEventListener('scroll', () => {
-  if (window.scrollY + 100 < lastScrollY) {
+  if (window.scrollY + 250 < lastScrollY) {
         index = true;
 		pauseButton.style.display = 'block';
 observer.observe(document.body, { childList: true, subtree: true });
@@ -192,7 +200,7 @@ observer.observe(document.body, { childList: true, subtree: true });
 	else {
         const nearBottom =window.innerHeight+ window.scrollY >= document.documentElement.scrollHeight - 100;
         if (nearBottom) {
-          //  index = false;
+            index = false;
 		     window.scrollTo(0, document.documentElement.scrollHeight);
 			pauseButton.style.display = 'none';
             observer.disconnect();
@@ -207,9 +215,9 @@ interval = setInterval(() => {
    if (!index) {
    window.scrollTo(0, document.documentElement.scrollHeight);
     }
-	if (document.querySelectorAll('.chat_line.animate').length > 3){
-	clearInterval(interval);
-	}
-}, 500);
+	//if (document.querySelectorAll('.chat_line.animate').length > 10){
+	//clearInterval(interval);
+	//}
+}, 1000);
 </script>
 </html>
