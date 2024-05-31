@@ -201,7 +201,6 @@ observer.observe(document.body, { childList: true, subtree: true });
         const nearBottom =window.innerHeight+ window.scrollY >= document.documentElement.scrollHeight - 100;
         if (nearBottom) {
             index = false;
-		  //   window.scrollTo(0, document.documentElement.scrollHeight);
 			pauseButton.style.display = 'none';
             observer.disconnect();
 			document.querySelectorAll('.chat_line.animate').forEach(element => {
@@ -215,9 +214,6 @@ interval = setInterval(() => {
    if (!index) {
    window.scrollTo(0, document.documentElement.scrollHeight);
     }
-	//if (document.querySelectorAll('.chat_line.animate').length > 10){
-	//clearInterval(interval);
-	//}
 }, 1000);
 </script>
 </html>
