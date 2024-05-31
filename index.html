@@ -180,7 +180,7 @@ pauseButton.addEventListener('click', () => {
 	   window.scrollTo(0, document.documentElement.scrollHeight);
 });
 window.addEventListener('scroll', () => {
-  if (window.scrollY + 300 < lastScrollY) {
+  if (window.scrollY + 200 < lastScrollY) {
         index = true;
 		pauseButton.style.display = 'block';
 observer.observe(document.body, { childList: true, subtree: true });
