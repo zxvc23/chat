@@ -177,9 +177,10 @@ pauseButton.style.border = '2px solid lime';
 document.body.appendChild(pauseButton);
 pauseButton.addEventListener('click', () => {
     index = false;
+	   window.scrollTo(0, document.documentElement.scrollHeight);
 });
 window.addEventListener('scroll', () => {
-  if (window.scrollY + 200 < lastScrollY) {
+  if (window.scrollY + 300 < lastScrollY) {
         index = true;
 		pauseButton.style.display = 'block';
 observer.observe(document.body, { childList: true, subtree: true });
@@ -187,7 +188,6 @@ observer.observe(document.body, { childList: true, subtree: true });
 	else {
         const nearBottom =window.innerHeight+ window.scrollY >= document.documentElement.scrollHeight - 200;
         if (nearBottom) {
-		window.scrollTo(0, document.documentElement.scrollHeight);
             index = false;
 			pauseButton.style.display = 'none';
             observer.disconnect();
