@@ -147,6 +147,7 @@
 </body>
 	<script>
 let index = false;
+let index2=false;
 	let interval,t;
 	let lastScrollY=window.innerHeight;
 	console.log('window.innerHeight=',window.innerHeight);
@@ -192,7 +193,10 @@ pauseButton.addEventListener('click', () => {
 	   window.scrollTo(0, document.documentElement.scrollHeight);
 });
 window.addEventListener('scroll', () => {
-  if (window.scrollY + 250 < lastScrollY) {
+if(!index2){
+if(document.querySelectorAll('.chat_line.animate').length > 10) index2=true;
+}
+  if (window.scrollY + 150 < lastScrollY && index2) {
         index = true;
 		pauseButton.style.display = 'block';
 observer.observe(document.body, { childList: true, subtree: true });
@@ -214,6 +218,6 @@ interval = setInterval(() => {
    if (!index) {
    window.scrollTo(0, document.documentElement.scrollHeight);
     }
-}, 1000);
+}, 500);
 </script>
 </html>
