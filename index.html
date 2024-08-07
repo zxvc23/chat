@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Chat Overlay</title>
-      <style>
+    <style>
         /* Animation */
         @keyframes fadeInUp {
             from {
@@ -16,18 +16,30 @@
                 opacity: 1
             }
         }
-	::-webkit-scrollbar {
-  width: 8px;
-}
 
-::-webkit-scrollbar-track {
-  background: black;
-  border-radius: 5px;
-}
+        /* Hide scrollbar for WebKit-based browsers (Chrome, Safari) */
+        ::-webkit-scrollbar {
+            width: 0; /* Removes the scrollbar width */
+            height: 0; /* Removes the scrollbar height for horizontal scrolling */
+            background: transparent; /* Ensures scrollbar is invisible */
+        }
 
-::-webkit-scrollbar-thumb {
-  background-color: #777;
-  border-radius: 5px;}
+        ::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 0;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: transparent; /* Invisible scrollbar thumb */
+            border-radius: 0;
+        }
+
+        /* Hide scrollbar for Firefox */
+        body, #chat-container {
+            scrollbar-width: none; /* Firefox hides scrollbar */
+            -ms-overflow-style: none; /* IE 10+ hides scrollbar */
+        }
+
         @-webkit-keyframes fadeInUp {
             from {
                 transform: translate3d(0, 40px, 0)
@@ -78,42 +90,47 @@
             -webkit-animation-name: fadeOut;
         }
 
-   body {
-  margin: 0;
-  height: 8500px;
-  position: relative;
-  overflow-x:hidden;
-  overflow-y:auto;
-}
-#loading
-{
-opacity:0;
-}
-#chat-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 20px;
-  width: calc(100% - 20px);
-  padding: 10px;
-  position: absolute;
-  bottom: 0;
-  overflow: hidden; /* Enable vertical scrolling */
-  background-color: transparent;
-  color: white;
-  font-weight: 800;
-  word-break: break-word;
-}
+        body {
+            margin: 0;
+            height: 8500px;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
 
+        #loading {
+            opacity: 0;
+        }
+
+        #chat-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            width: calc(100% - 20px);
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            overflow-y: auto; /* Enable vertical scrolling */
+            overflow-x: hidden; /* Disable horizontal scrolling */
+            background-color: transparent;
+            color: white;
+            font-weight: 800;
+            word-break: break-word;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Add drop shadow to the chat container */
+        }
 
         .chat_line {
             line-height: 30px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add drop shadow to chat lines */
         }
 
         .user_info {
             display: inline-block;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add drop shadow to user info */
         }
 
         .colon {
             margin-right: 8px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add drop shadow to colon */
         }
 
         .emote {
@@ -121,6 +138,7 @@ opacity:0;
             max-height: 25px;
             margin-right: 4px;
             vertical-align: middle;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add drop shadow to emotes */
         }
 
         .badge {
@@ -130,6 +148,7 @@ opacity:0;
             margin-bottom: 3px;
             vertical-align: middle;
             border-radius: 10%;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add drop shadow to badges */
         }
 
         img .emoji {
@@ -137,9 +156,11 @@ opacity:0;
             max-height: 25px !important;
             margin-right: 4px !important;
             vertical-align: middle !important;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) !important; /* Add drop shadow to emojis */
         }
     </style>
 </head>
+
 <body>
     <div id="chat-container">
         <span id="loading">Connecting chat with Cx Watcher....</span>
